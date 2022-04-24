@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="hello" class="org.bearfly.learn.spring.xml.model.Hello">
+        <property name="hi" value="Hello World" />
+    </bean>
+    <bean id="user" class="org.bearfly.learn.spring.xml.model.User">
+        <property name="name" value="Bearfly" />
+    </bean>
+
+    <bean id="user-by-index" class="org.bearfly.learn.spring.xml.model.User">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="Bearfly1990-Index" />
+    </bean>
+
+    <!-- Not Suggest, sometimes the type is the same-->
+    <bean id="user-by-type" class="org.bearfly.learn.spring.xml.model.User">
+        <constructor-arg type="int" value="1"/>
+        <constructor-arg type="java.lang.String" value="Bearfly1990-Type" />
+    </bean>
+
+    <bean id="user-by-name" class="org.bearfly.learn.spring.xml.model.User">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="Bearfly1990-Name" />
+    </bean>
+
+    <bean id="mysqlImpl" class="org.bearfly.learn.spring.xml.dao.impl.UserDaoMysql" />
+    <bean id="oracleImpl" class="org.bearfly.learn.spring.xml.dao.impl.UserDaoOracle" />
+
+    <bean id="userService" class="org.bearfly.learn.spring.xml.service.impl.UserServiceImpl" name="userService1,userService2 userService3;userService4">
+        <property name="userDao" ref="mysqlImpl" />
+    </bean>
+
+    <alias name="userService" alias="userServiceAlias" />
+</beans>

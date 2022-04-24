@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="address" class="org.bearfly.learn.spring.xml.model.Address">
+        <property name="country" value="CN" />
+    </bean>
+    <bean id="student" class="org.bearfly.learn.spring.xml.model.Student">
+        <property name="name" value="Bearfly-DI" />
+<!--        object-->
+        <property name="address" ref="address" />
+<!--        array-->
+        <property name="books">
+            <array>
+                <value>Book1</value>
+                <value>Book2</value>
+                <value>Book3</value>
+            </array>
+        </property>
+<!--        list-->
+        <property name="hobbies">
+            <list>
+                <value>Book</value>
+                <value>Swim</value>
+                <value>Hiking</value>
+            </list>
+        </property>
+
+        <property name="card">
+            <map>
+                <entry key="IDCard" value="123456">
+                </entry>
+            </map>
+        </property>
+
+<!--        set-->
+        <property name="game">
+            <set>
+                <value>LOL</value>
+                <value>CF</value>
+            </set>
+        </property>
+        <property name="child">
+            <null/>
+        </property>
+
+<!--        Properties-->
+        <property name="info">
+            <props>
+                <prop key="class">2</prop>
+                <prop key="room">603</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
