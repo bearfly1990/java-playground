@@ -70,16 +70,29 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-jdbc</artifactId>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>org.springframework.boot</groupId>-->
-        <!--                    <artifactId>spring-boot-starter-logging</artifactId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,16 +104,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.microsoft.sqlserver</groupId>-->
-        <!--            <artifactId>mssql-jdbc</artifactId>-->
-        <!--            <version>9.4.1.jre8</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>9.4.1.jre8</version>
+        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis/mybatis &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis</groupId>-->
+<!--            <artifactId>mybatis</artifactId>-->
+<!--            <version>3.5.9</version>-->
+<!--        </dependency>-->
         <!-- Test -->
         <!--        <dependency>-->
         <!--            <groupId>io.cucumber</groupId>-->
@@ -123,6 +143,13 @@
         <directory>target</directory>
         <resources>
             <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.*</include>
@@ -136,18 +163,18 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.6.6</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <version>2.6.6</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

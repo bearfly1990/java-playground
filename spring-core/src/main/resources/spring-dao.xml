@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--        DataSource: c3p0 dbcp druid-->
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="url" value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=BFTest"/>
+        <property name="username" value="xiche"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="configLocation" value="classpath:spring-mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:org/bearfly/learn/spring/mybatis/mapper/*.xml"/>
+    </bean>
+
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!-- No set method -->
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="userMapper" class="org.bearfly.learn.spring.mybatis.mapper.UserMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <bean id="userMapper2" class="org.bearfly.learn.spring.mybatis.mapper.UserMapperImpl2">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--        <constructor-arg ref="dataSource" />-->
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+    <!--配置事务的织入，配置事务通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add" propagation="REQUIRED"/>
+            <tx:method name="delete"/>
+            <tx:method name="update"/>
+            <tx:method name="query" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* org.bearfly.learn.spring.mybatis.mapper.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+</beans>
